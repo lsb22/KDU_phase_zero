@@ -98,14 +98,14 @@ join category using(category_id);
 
 ## Why 1: Why do we use Foreign Keys?
 
-*Foreign keys are used to enforce data consitency and integrity. By having foreign key constraint we avoid having orphaned data and keep the relationship b/w tables valid. We make sure that a row isn't inserted into the referencing table unless the foreign key value already exists in the referenced table*
+*Foreign keys are used to enforce data consistency and integrity. By having foreign key constraint we avoid having orphaned data and keep the relationship b/w tables valid. We make sure that a row isn't inserted into the referencing table unless the foreign key value already exists in the referenced table*
 
 
 
 ## Why 2: Why is ACID important for this database?
 ### Imagine 1000 users trying to watch "Stranger Adventures" at the same time, and the system needs to update the view count. What could go wrong without ACID properties?
 
-*ACID properties help transactions maintain data consitency and integrity. As for the example, if we didn't have ACID, then just without ISOLATION, views would get incremented incorrectly due to improper concurrency control leading to data incosistency. And Atomicity helps to make sure that every transaction either gets completed or rejected as a whole, like if commiting the view count fails, the whole transaction should be rolled back. And consistency takes database from one valid state to another valid state. Here views should always be positive and not become negative. Durability makes sures that commited data remains permanently in database, even after a system breakdown. So together ACID plays a crucial role in maintaing data consitency and integrity.*
+*ACID properties help transactions maintain data consistency and integrity. As for the example, if we didn't have ACID, then just without ISOLATION, views would get incremented incorrectly due to improper concurrency control leading to data incosistency. And Atomicity helps to make sure that every transaction either gets completed or rejected as a whole, like if commiting the view count fails, the whole transaction should be rolled back. And consistency takes database from one valid state to another valid state. Here views should always be positive and not become negative. Durability makes sures that commited data remains permanently in database, even after a system breakdown. So together ACID plays a crucial role in maintaing data consistency and integrity.*
 
 
 
