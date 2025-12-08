@@ -27,6 +27,7 @@ titlesDict = dict()
 
 for i in range(len(titles)):
     titles[i] = titles[i].strip()
+    if len(titles[i]) == 0: continue
     titlesDict[titles[i]] = titlesDict.get(titles[i],0)+1
 
 # sort dictionary
