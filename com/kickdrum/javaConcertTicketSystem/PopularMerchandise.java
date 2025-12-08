@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.PriorityQueue;
 
 class PopularMerchandise {
     public static void main(String[] args) {
@@ -34,10 +35,8 @@ class PopularMerchandise {
                 items = (br.readLine()).split(",");
             }
 
-            // variables to hold the top 3 most frequent strings
-            String first = "", second = "", third = "";
-            // variables to hold the frequency of the top 3 most frequent strings
-            int first_frequency = 0, second_frequency = 0, third_frequency = 0;
+            // max heap
+            PriorityQueue<String[]> pq = new PriorityQueue<>((a, b) -> Integer.parseInt(b[1]) - Integer.parseInt(a[1]));
 
             if (items != null) {
                 for (int i = 0; i < items.length; i++) {
@@ -45,26 +44,34 @@ class PopularMerchandise {
                     items[i] = items[i].trim();
                 }
 
-                // iterate and find the most frequent strings
+                // iterate and add strings to map
                 for (String curr : items) {
-                    frequency.put(curr, frequency.getOrDefault(curr, 0) + 1);
-                    if (first_frequency < frequency.get(curr)) {
-                        first_frequency = frequency.get(curr);
-                        first = curr;
-                    } else if (second_frequency < frequency.get(curr)) {
-                        second_frequency = frequency.get(curr);
-                        second = curr;
-                    } else if (third_frequency < frequency.get(curr)) {
-                        third_frequency = frequency.get(curr);
-                        third = curr;
-                    }
+                    if (curr.length() > 0)
+                        frequency.put(curr, frequency.getOrDefault(curr, 0) + 1);
                 }
-            }
 
-            System.out.println("Top 3 items with the most frequency are: ");
-            System.out.println(first + ": " + first_frequency);
-            System.out.println(second + ": " + second_frequency);
-            System.out.println(third + ": " + third_frequency);
+                // if file contains empty strings
+                if (frequency.size() == 0) {
+                    System.err.println("File is empty");
+                    System.exit(-1);
+                }
+
+                // add key value pairs to queue
+                for (String key : frequency.keySet()) {
+                    pq.offer(new String[] { key, frequency.get(key) + "" });
+                }
+
+                System.out.println("Top 3 items with the most frequency are: ");
+                System.out.println(pq.peek()[0] + ": " + pq.poll()[1]);
+                if (pq.size() > 0) {
+                    System.out.println(pq.peek()[0] + ": " + pq.poll()[1]);
+                }
+                if (pq.size() > 0) {
+                    System.out.println(pq.peek()[0] + ": " + pq.poll()[1]);
+                }
+            } else {
+                System.err.println("File is empty");
+            }
 
         } catch (IOException e) {
             System.out.println(e.getMessage());
