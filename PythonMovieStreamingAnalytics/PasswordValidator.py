@@ -6,10 +6,11 @@ while True:
 
     # check for empty values
     if len(password) == 0:
-        raise Exception("Password can't be empty")
+        print("Password can't be empty")
     if len(confirmation) == 0:
-        raise Exception("Confirmation value can't be empty")
-    break
+        print("Confirmation value can't be empty")
+        print()
+    else: break
 
 print("Length of the First string:", len(password))
 print("Length of the Second string:", len(confirmation))
