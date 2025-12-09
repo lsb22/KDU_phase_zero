@@ -48,15 +48,6 @@ class TicketCategories {
 
         System.out.println("ArrayList: " + ticketsList);
         System.out.println("HashSet: " + uniqueTickets);
-
-        int size = ticketsFrequency.size(), count = 0;
-
-        System.out.print("HashMap: {");
-        for (String key : ticketsFrequency.keySet()) {
-            System.out.print(key + "=" + ticketsFrequency.get(key));
-            if (count++ != size - 1)
-                System.out.print(", ");
-        }
-        System.out.println("}");
+        System.out.print("HashMap: " + ticketsFrequency);
     }
 }
