@@ -35,8 +35,8 @@ class PopularMerchandise {
                 items = (br.readLine()).split(",");
             }
 
-            // max heap
-            PriorityQueue<String[]> pq = new PriorityQueue<>((a, b) -> Integer.parseInt(b[1]) - Integer.parseInt(a[1]));
+            // maintain max heap of size 3
+            PriorityQueue<String> pq = new PriorityQueue<>((a, b) -> frequency.get(a) - frequency.get(b));
 
             if (items != null) {
                 for (int i = 0; i < items.length; i++) {
@@ -58,17 +58,39 @@ class PopularMerchandise {
 
                 // add key value pairs to queue
                 for (String key : frequency.keySet()) {
-                    pq.offer(new String[] { key, frequency.get(key) + "" });
+                    int val = frequency.get(key);
+                    if (pq.size() < 3)
+                        pq.offer(key);
+                    else if (val > frequency.get(pq.peek())) {
+                        pq.poll();
+                        pq.offer(key);
+                    }
+                }
+
+                String top1 = "", top2 = "", top3 = "";
+                int top1Count = 0, top2Count = 0, top3Count = 0;
+
+                top3 = pq.peek();
+                top3Count = frequency.get(pq.poll());
+
+                if (pq.size() > 0) {
+                    top2 = pq.peek();
+                    top2Count = frequency.get(pq.poll());
+                }
+
+                if (pq.size() > 0) {
+                    top1 = pq.peek();
+                    top1Count = frequency.get(pq.poll());
                 }
 
                 System.out.println("Top 3 items with the most frequency are: ");
-                System.out.println(pq.peek()[0] + ": " + pq.poll()[1]);
-                if (pq.size() > 0) {
-                    System.out.println(pq.peek()[0] + ": " + pq.poll()[1]);
-                }
-                if (pq.size() > 0) {
-                    System.out.println(pq.peek()[0] + ": " + pq.poll()[1]);
-                }
+                if (top1.length() != 0)
+                    System.out.println(top1 + ": " + top1Count);
+                if (top2.length() != 0)
+                    System.out.println(top2 + ": " + top2Count);
+                if (top3.length() != 0)
+                    System.out.println(top3 + ": " + top3Count);
+
             } else {
                 System.err.println("File is empty");
             }
