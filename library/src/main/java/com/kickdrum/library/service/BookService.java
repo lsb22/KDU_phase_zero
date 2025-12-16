@@ -15,7 +15,7 @@ public class BookService {
         try {
             return bookRepository.save(book);
         } catch(DataIntegrityViolationException e) {
-            // DataIntegrityViolationException: indicated database error like not unique, adding null
+            // DataIntegrityViolationException: indicates database error like not unique, adding null
             if(e.getMessage().contains("Duplicate entry") || e.getMessage().contains("unique constraint")) {
                 throw new RuntimeException("Book: "+book.getName()+" already exists");
             }
