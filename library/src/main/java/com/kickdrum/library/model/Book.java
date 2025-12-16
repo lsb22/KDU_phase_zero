@@ -13,7 +13,7 @@ public class Book {
     // @GeneratedValue: Value generated automatically
     // GenerationType.AUTO :  Value is incremented sequentially
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
 
     // these fields will be mapped to columns in the table
@@ -100,6 +100,15 @@ public class Book {
     }
 
     public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public Book() {}
+
+    public Book(String name, String author, double price, String language) {
+        this.name = name;
+        this.author = author;
+        this.price = price;
         this.language = language;
     }
 }
