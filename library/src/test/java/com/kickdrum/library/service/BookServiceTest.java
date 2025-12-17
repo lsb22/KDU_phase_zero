@@ -9,6 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import java.util.Optional;
 
@@ -36,13 +37,13 @@ class BookServiceTest {
     void addBookShouldThrowRuntimeExceptionForDuplicateEntry() {
         Book bookToAdd = new Book("Life","Ming",100.0,"Hindi");
 
-        Mockito.when(bookRepository.save(bookToAdd)).thenThrow(new RuntimeException("Book Life already exists"));
+        Mockito.when(bookRepository.save(bookToAdd)).thenThrow(new DataIntegrityViolationException("Book 'Life' is a duplicate entry"));
 
         RuntimeException runtimeException = Assertions.assertThrows(RuntimeException.class,() -> {
             bookService.addBook(bookToAdd);
         });
 
-        Assertions.assertEquals("Book Life already exists",runtimeException.getMessage());
+        Assertions.assertEquals("Database error: Book 'Life' is a duplicate entry",runtimeException.getMessage());
     }
 
     @Test
