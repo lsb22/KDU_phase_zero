@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -37,5 +36,13 @@ public class BookService {
 
     public List<Book> getAllBooks() {
         return bookRepository.findAll();
+    }
+
+    public void deleteBookById(int id) {
+        if(!bookRepository.existsById(id)) {
+            throw new RuntimeException("Book with id: "+id+" doesn't exist. So it can't be deleted.");
+        }
+
+        bookRepository.deleteById(id);
     }
 }

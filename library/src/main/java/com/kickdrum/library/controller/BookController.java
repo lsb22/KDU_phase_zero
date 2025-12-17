@@ -52,6 +52,12 @@ public class BookController {
         return ResponseEntity.ok(bookService.findBookByTitle(title));
     }
 
+    @DeleteMapping("/id/{bookId}")
+    public ResponseEntity<String> deleteBookById(@PathVariable int bookId) {
+        bookService.deleteBookById(bookId);
+        return ResponseEntity.ok("Book with id: "+bookId+" deleted Successfully");
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String,String>> handleValidationExceptions(MethodArgumentNotValidException ex) {
         Map<String,String> errors = new HashMap<String,String>();
@@ -83,7 +89,7 @@ public class BookController {
             errors.put("message","Don't provide duplicate Entries");
             errors.put("error","Duplicate Entry");
             return ResponseEntity.status(HttpStatus.CONFLICT).body(errors);
-        } else if(ex.getMessage().contains("not found")) {
+        } else if(ex.getMessage().contains("not found") || ex.getMessage().contains("deleted")) {
             errors.put("status",Integer.toString(HttpStatus.NOT_FOUND.value()));
             errors.put("error","Book not found");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errors);
