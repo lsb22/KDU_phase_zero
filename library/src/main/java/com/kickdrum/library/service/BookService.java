@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.List;
+
 @Service
 public class BookService {
     @Autowired
@@ -17,7 +20,7 @@ public class BookService {
         } catch(DataIntegrityViolationException e) {
             // DataIntegrityViolationException: indicates database error like not unique, adding null
             if(e.getMessage().contains("Duplicate entry") || e.getMessage().contains("unique constraint")) {
-                throw new RuntimeException("Book: "+book.getName()+" already exists");
+                throw new RuntimeException("Book: "+book.getTitle()+" already exists");
             }
             throw new RuntimeException("Database error: "+ e.getMessage());
         }
@@ -27,5 +30,11 @@ public class BookService {
         return bookRepository
                 .findById(id)
                 .orElseThrow(() -> new RuntimeException("Book with id: "+id+" not found"));
+    }
+
+    public Book findBookByTitle(String title) {
+        return bookRepository
+                .findBookByTitle(title)
+                .orElseThrow(() -> new RuntimeException("Book with title: "+title+" not found"));
     }
 }

@@ -25,8 +25,8 @@ public class Book {
     // layer, this acts as second line of defense
 
     @Column(nullable = false, unique = true)
-    @NotBlank(message = "name is required")
-    private String name;
+    @NotBlank(message = "title is required")
+    private String title;
 
     @NotBlank(message = "author is required")
     private String author;
@@ -55,12 +55,12 @@ public class Book {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getAuthor() {
@@ -105,8 +105,8 @@ public class Book {
 
     public Book() {}
 
-    public Book(String name, String author, double price, String language) {
-        this.name = name;
+    public Book(String title, String author, double price, String language) {
+        this.title = title;
         this.author = author;
         this.price = price;
         this.language = language;

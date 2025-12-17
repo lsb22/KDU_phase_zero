@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -28,10 +29,14 @@ public class BookController {
         } else return ResponseEntity.internalServerError().build();
     }
 
-    @GetMapping("/{bookId}")
+    @GetMapping("/id/{bookId}")
     public ResponseEntity<Book> findBookById(@PathVariable int bookId) {
-        Book expectedBook = bookService.findBookById(bookId);
-        return ResponseEntity.ok(expectedBook);
+        return ResponseEntity.ok(bookService.findBookById(bookId));
+    }
+
+    @GetMapping("/title/{title}")
+    public ResponseEntity<Book> findBookByTitle(@PathVariable String title) {
+        return ResponseEntity.ok(bookService.findBookByTitle(title));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

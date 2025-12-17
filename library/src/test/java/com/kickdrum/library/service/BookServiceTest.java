@@ -26,7 +26,7 @@ class BookServiceTest {
         Mockito.when(bookRepository.save(bookToAdd)).thenReturn(expectedBook);
         Book actualBook = bookService.addBook(bookToAdd);
 
-        Assertions.assertEquals(expectedBook.getName(),actualBook.getName());
+        Assertions.assertEquals(expectedBook.getTitle(),actualBook.getTitle());
         Mockito.verify(bookRepository,Mockito.times(1)).save(bookToAdd);
     }
 
