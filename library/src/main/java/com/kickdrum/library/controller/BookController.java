@@ -28,6 +28,12 @@ public class BookController {
         } else return ResponseEntity.internalServerError().build();
     }
 
+    @GetMapping("/{bookId}")
+    public ResponseEntity<Book> findBookById(@PathVariable int bookId) {
+        Book expectedBook = bookService.findBookById(bookId);
+        return ResponseEntity.ok(expectedBook);
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String,String>> handleValidationExceptions(MethodArgumentNotValidException ex) {
         Map<String,String> errors = new HashMap<String,String>();
@@ -58,6 +64,10 @@ public class BookController {
             errors.put("status", Integer.toString(HttpStatus.CONFLICT.value()));
             errors.put("error","Duplicate Entry");
             return ResponseEntity.badRequest().body(errors);
+        } else if(ex.getMessage().contains("not found")) {
+            errors.put("status",Integer.toString(HttpStatus.NOT_FOUND.value()));
+            errors.put("error","Book not found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errors);
         } else {
             // HttpStatus.INTERNAL_SERVER_ERROR.value(): returns code for Server Error : 500
             errors.put("status", Integer.toString(HttpStatus.INTERNAL_SERVER_ERROR.value()));

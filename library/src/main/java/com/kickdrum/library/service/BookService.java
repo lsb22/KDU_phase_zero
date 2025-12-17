@@ -22,4 +22,10 @@ public class BookService {
             throw new RuntimeException("Database error: "+ e.getMessage());
         }
     }
+
+    public Book findBookById(int id) {
+        return bookRepository
+                .findById(id)
+                .orElseThrow(() -> new RuntimeException("Book with id: "+id+" not found"));
+    }
 }
