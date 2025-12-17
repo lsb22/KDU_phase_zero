@@ -29,6 +29,19 @@ public class BookController {
         } else return ResponseEntity.internalServerError().build();
     }
 
+    @GetMapping
+    public ResponseEntity<Map<String, Object>> getAllBooks() {
+        List<Book> returnedBooks = bookService.getAllBooks();
+        Map<String,Object> result = new HashMap<String,Object>();
+
+        if(returnedBooks.isEmpty()) {
+            result.put("message","Inventory is Empty");
+        }
+
+        result.put("Content",returnedBooks);
+        return ResponseEntity.ok(result);
+    }
+
     @GetMapping("/id/{bookId}")
     public ResponseEntity<Book> findBookById(@PathVariable int bookId) {
         return ResponseEntity.ok(bookService.findBookById(bookId));

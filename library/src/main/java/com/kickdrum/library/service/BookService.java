@@ -34,4 +34,8 @@ public class BookService {
                 .findBookByTitle(title)
                 .orElseThrow(() -> new RuntimeException("Book with title: "+title+" not found"));
     }
+
+    public List<Book> getAllBooks() {
+        return bookRepository.findAll();
+    }
 }
