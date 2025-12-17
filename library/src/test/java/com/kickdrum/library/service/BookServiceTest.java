@@ -72,4 +72,31 @@ class BookServiceTest {
 
         Assertions.assertEquals("Book with id: "+bookId+" not found",runtimeException.getMessage());
     }
+
+    @Test
+    void findBookByTitleShouldSuccessfullyReturnBookForTheGivenTitle() {
+        String title = "My Name is Book";
+        Book expectedBook = new Book(title,"Ling",1000.000,"Kannada");
+        expectedBook.setId(5);
+
+        Mockito.when(bookRepository.findBookByTitle(title)).thenReturn(Optional.of(expectedBook));
+
+        Book actualBook = bookService.findBookByTitle(title);
+
+        Assertions.assertEquals(title,actualBook.getTitle());
+        Mockito.verify(bookRepository,Mockito.times(1)).findBookByTitle(title);
+    }
+
+    @Test
+    void findBookByTitleShouldThrowRuntimeExceptionForInvalidTitle() {
+        String title = "My Name is Book";
+
+        Mockito.when(bookRepository.findBookByTitle(title)).thenReturn(Optional.empty());
+
+        RuntimeException runtimeException = Assertions.assertThrows(RuntimeException.class, () -> {
+            bookService.findBookByTitle(title);
+        });
+
+        Assertions.assertEquals("Book with title: "+title+" not found",runtimeException.getMessage());
+    }
 }
