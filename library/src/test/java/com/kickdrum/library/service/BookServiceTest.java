@@ -11,6 +11,9 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.dao.DataIntegrityViolationException;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
@@ -98,5 +101,20 @@ class BookServiceTest {
         });
 
         Assertions.assertEquals("Book with title: "+title+" not found",runtimeException.getMessage());
+    }
+
+    @Test
+    void getAllBooksShouldSuccessfullyReturnListOfAllBooks() {
+        List<Book> expectedBooks = Arrays.asList(
+                new Book("Book1","Ling",100.00,"English"),
+                new Book("Book2","Ling",100.00,"English")
+        );
+
+        Mockito.when(bookRepository.findAll()).thenReturn(expectedBooks);
+
+        List<Book> actualBooks = bookService.getAllBooks();
+
+        Assertions.assertEquals(2,actualBooks.size());
+        Assertions.assertEquals(expectedBooks,actualBooks);
     }
 }
