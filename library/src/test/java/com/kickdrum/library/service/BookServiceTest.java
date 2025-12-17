@@ -117,4 +117,27 @@ class BookServiceTest {
         Assertions.assertEquals(2,actualBooks.size());
         Assertions.assertEquals(expectedBooks,actualBooks);
     }
+
+    @Test
+    void deleteBookByIdShouldSuccessfullyDeleteBookForTheGivenId() {
+        int bookId = 5;
+        Mockito.when(bookRepository.existsById(bookId)).thenReturn(true);
+
+        bookService.deleteBookById(bookId);
+
+        Mockito.verify(bookRepository,Mockito.times(1)).deleteById(bookId);
+    }
+
+    @Test
+    void deleteBookByIdShouldThrowRuntimeExceptionForInvalidId() {
+        int bookId = 5;
+
+        Mockito.when(bookRepository.existsById(bookId)).thenReturn(false);
+
+        RuntimeException runtimeException = Assertions.assertThrows(RuntimeException.class, () -> {
+            bookService.deleteBookById(bookId);
+        });
+
+        Assertions.assertEquals("Book with id: "+bookId+" doesn't exist. So it can't be deleted.", runtimeException.getMessage());
+    }
 }
