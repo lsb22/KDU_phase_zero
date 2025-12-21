@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles.css" />
+    <title>Pomodoro Clock</title>
+  </head>
+  <body>
+    <h1>Pomodoro Clock</h1>
+    <h3>Focus Man! Focus!</h3>
+    <div id="counter">
+      <div id="minutes">1</div>
+      <div id="colon">:</div>
+      <div id="seconds">00</div>
+    </div>
+    <div id="buttons">
+      <button id="start">Start</button>
+      <button id="pause" disabled>Pause</button>
+      <button id="reset" disabled>Reset</button>
+    </div>
+    <div id="custom-time-setter">
+      <div id="">Customize your timer</div>
+      <div id="custom-timer">
+        <input type="number" min="1" max="60" />
+        <button><p>Set timer</p></button>
+      </div>
+    </div>
+    <div id="sessions-tracker">
+      Sessions completed:
+      <div id="sessions-completed">0</div>
+    </div>
+    <script defer src="./script.js"></script>
+  </body>
+</html>
