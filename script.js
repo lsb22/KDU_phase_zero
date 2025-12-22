@@ -73,7 +73,7 @@ function resetClock() {
 
 function decrementClock() {
   let minuteCount = parseInt(minuteElement.innerText);
-  if (minuteCount !== 0) --minuteCount;
+  if (minuteCount !== 0 && startElement.innerText !== "Resume") --minuteCount;
   minuteElement.innerText =
     minuteCount >= 10 ? minuteCount.toString() : "0" + minuteCount;
 
