@@ -54,6 +54,7 @@ body {
 button {
   margin-top: 10px;
   font-size: 2rem;
+  border-radius: 10px;
 }
 
 #start {
@@ -75,7 +76,8 @@ button {
   }
   button {
     width: 40%;
-    margin-top: -1px;
+    margin-top: -2px;
+    padding: 3px;
     p {
       margin: 0;
       font-size: 1.5rem;
