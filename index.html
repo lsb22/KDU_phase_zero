@@ -21,10 +21,16 @@
     </div>
     <div id="custom-time-setter">
       <div id="">Customize your timer</div>
-      <div id="custom-timer">
-        <input type="number" min="1" max="60" />
-        <button><p>Set timer</p></button>
-      </div>
+      <form id="custom-timer">
+        <input
+          type="number"
+          min="1"
+          max="60"
+          name="custom-timer-input"
+          required
+        />
+        <button type="submit"><p>Set timer</p></button>
+      </form>
     </div>
     <div id="sessions-tracker">
       Sessions completed:
