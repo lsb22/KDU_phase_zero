@@ -2,8 +2,9 @@ import { useState } from "react";
 import AddMovies from "./components/AddMovies";
 import { Button } from "@/components/ui/button";
 import SearchBar from "./components/SearchBar";
+import DisplayMovies from "./components/DisplayMovies";
 
-interface Movie {
+export interface Movie {
   name: string;
   rating: string;
   watched: boolean;
@@ -22,6 +23,18 @@ const App = () => {
         watched: false,
       },
     ]);
+  };
+
+  const updateMovie = (movieName: string) => {
+    setMovies(
+      movies.map((movie) =>
+        movie.name === movieName ? { ...movie, watched: !movie.watched } : movie
+      )
+    );
+  };
+
+  const deleteMovie = (movieName: string) => {
+    setMovies(movies.filter((movie) => movie.name !== movieName));
   };
 
   return (
@@ -49,7 +62,15 @@ const App = () => {
             }}
           />
           <div className="">
-            {seachMovie.length === 0 ? "Movie Display Component" : seachMovie}
+            {seachMovie.length === 0 ? (
+              <DisplayMovies
+                movies={movies}
+                updateMovie={updateMovie}
+                deleteMovie={deleteMovie}
+              />
+            ) : (
+              seachMovie
+            )}
           </div>
         </div>
       </div>
