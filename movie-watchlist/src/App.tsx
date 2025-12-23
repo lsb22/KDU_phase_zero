@@ -6,13 +6,19 @@ const App = () => {
     <div className="wrapper1">
       <h1 className="app-title">Movie WatchList</h1>
       <div className="wrapper2">
-        <div className="part1">
-          <h2 className="part1-title">Add your favourite Movie</h2>
+        <div className="part1 flex flex-col items-center justify-center gap-y-10 p-3">
+          <h2 className="part1-title w-full text-center border p-2.5 text-[2rem] rounded-md">
+            Add your favourite Movie
+          </h2>
           <AddMovies />
-          <div className="">Movies in WatchList: 0</div>
-          <Button className="bg-red-500 hover:bg-red-400">
-            Clear Watchlist
-          </Button>
+          <div className="w-full flex flex-col gap-y-7">
+            <div className="border rounded-md p-2 text-center">
+              Movies in WatchList: 0
+            </div>
+            <Button className="bg-red-500 hover:bg-red-600 active:scale-[0.9]">
+              Clear Watchlist
+            </Button>
+          </div>
         </div>
         <div className="part2">
           <input type="text" placeholder="Search your favourite movies here!" />
