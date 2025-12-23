@@ -1,3 +1,5 @@
+import AddMovies from "./components/AddMovies";
+
 const App = () => {
   return (
     <div className="wrapper1">
@@ -5,7 +7,7 @@ const App = () => {
       <div className="wrapper2">
         <div className="part1">
           <h2 className="part1-title">Add your favourite Movie</h2>
-          <div className="">Add movies Component</div>
+          <AddMovies />
           <div className="">Movies in WatchList: 0</div>
           <button className="">Clear Watchlist</button>
         </div>
