@@ -18,7 +18,7 @@ const AddMovies = ({ sendFormData }: Props) => {
 
   const handleFormSubmission = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (movie.length === 0) {
+    if (movie.length === 0 || movie.trim().length === 0) {
       alert("Movie Name can't be empty! Please enter a valid Movie Name");
       return;
     }
