@@ -1,0 +1,27 @@
+body {
+  margin: 0;
+  background: black;
+  color: white;
+  width: 100%;
+}
+
+.app-title {
+  font-size: 3rem;
+}
+
+.wrapper1 {
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto;
+}
+
+.app-title {
+  text-align: center;
+}
+
+.wrapper2 {
+  width: 98%;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 5px;
+}
