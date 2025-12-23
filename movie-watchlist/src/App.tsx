@@ -1,6 +1,7 @@
 import { useState } from "react";
 import AddMovies from "./components/AddMovies";
 import { Button } from "@/components/ui/button";
+import SearchBar from "./components/SearchBar";
 
 interface Movie {
   name: string;
@@ -10,6 +11,7 @@ interface Movie {
 
 const App = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
+  const [seachMovie, setSearchMovie] = useState("");
 
   const sendFormData = (movieName: string, movieRatings: string) => {
     setMovies([
@@ -40,9 +42,15 @@ const App = () => {
             </Button>
           </div>
         </div>
-        <div className="part2">
-          <input type="text" placeholder="Search your favourite movies here!" />
-          <div className="">Display movies component</div>
+        <div className="part2 p-3">
+          <SearchBar
+            seachMovie={(movieName) => {
+              setSearchMovie(movieName);
+            }}
+          />
+          <div className="">
+            {seachMovie.length === 0 ? "Movie Display Component" : seachMovie}
+          </div>
         </div>
       </div>
     </div>
