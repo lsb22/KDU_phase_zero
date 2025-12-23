@@ -37,6 +37,10 @@ const App = () => {
     setMovies(movies.filter((movie) => movie.name !== movieName));
   };
 
+  const clearWatchList = () => {
+    setMovies([]);
+  };
+
   return (
     <div className="wrapper1">
       <h1 className="app-title">Movie WatchList</h1>
@@ -50,7 +54,10 @@ const App = () => {
             <div className="border rounded-md p-2 text-center">
               Movies in WatchList: {movies.length}
             </div>
-            <Button className="bg-red-500 hover:bg-red-600 active:scale-[0.9]">
+            <Button
+              className="bg-red-500 hover:bg-red-600 active:scale-[0.9]"
+              onClick={clearWatchList}
+            >
               Clear Watchlist
             </Button>
           </div>
