@@ -6,15 +6,22 @@ interface Props {
   movies: Movie[];
   updateMovie: (movieName: string) => void;
   deleteMovie: (movieName: string) => void;
+  searching: boolean;
 }
 
-const DisplayMovies = ({ movies, updateMovie, deleteMovie }: Props) => {
+const DisplayMovies = ({
+  movies,
+  updateMovie,
+  deleteMovie,
+  searching,
+}: Props) => {
+  const emptyListMessage = searching
+    ? "No movies found. Try a different search!"
+    : "Your watchlist is empty. Add your first movie!";
   return (
     <div className="py-7 flex flex-col gap-y-4">
       {movies.length === 0 ? (
-        <h2 className="text-3xl">
-          Your watchlist is empty. Add your first movie!
-        </h2>
+        <h2 className="text-3xl">{emptyListMessage}</h2>
       ) : (
         movies.map((movie, idx) => (
           <div

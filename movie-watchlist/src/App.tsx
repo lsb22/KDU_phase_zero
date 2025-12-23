@@ -67,9 +67,17 @@ const App = () => {
                 movies={movies}
                 updateMovie={updateMovie}
                 deleteMovie={deleteMovie}
+                searching={false}
               />
             ) : (
-              seachMovie
+              <DisplayMovies
+                movies={movies.filter((movie) =>
+                  movie.name.toLowerCase().includes(seachMovie)
+                )}
+                updateMovie={updateMovie}
+                deleteMovie={deleteMovie}
+                searching={true}
+              />
             )}
           </div>
         </div>

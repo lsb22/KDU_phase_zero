@@ -14,7 +14,7 @@ const SearchBar = ({ seachMovie }: Props) => {
     <InputGroup className="h-10">
       <InputGroupInput
         placeholder="Search your favourite movies here!"
-        onChange={(e) => seachMovie(e.target.value.toLocaleLowerCase())}
+        onChange={(e) => seachMovie(e.target.value.toLowerCase())}
       />
       <InputGroupAddon>
         <SearchIcon />
