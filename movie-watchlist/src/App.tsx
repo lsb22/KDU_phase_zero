@@ -33,7 +33,7 @@ const App = () => {
           <AddMovies sendFormData={sendFormData} />
           <div className="w-full flex flex-col gap-y-7">
             <div className="border rounded-md p-2 text-center">
-              Movies in WatchList: 0
+              Movies in WatchList: {movies.length}
             </div>
             <Button className="bg-red-500 hover:bg-red-600 active:scale-[0.9]">
               Clear Watchlist
