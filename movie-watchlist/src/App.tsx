@@ -1,7 +1,27 @@
+import { useState } from "react";
 import AddMovies from "./components/AddMovies";
 import { Button } from "@/components/ui/button";
 
+interface Movie {
+  name: string;
+  rating: string;
+  watched: boolean;
+}
+
 const App = () => {
+  const [movies, setMovies] = useState<Movie[]>([]);
+
+  const sendFormData = (movieName: string, movieRatings: string) => {
+    setMovies([
+      ...movies,
+      {
+        name: movieName,
+        rating: movieRatings,
+        watched: false,
+      },
+    ]);
+  };
+
   return (
     <div className="wrapper1">
       <h1 className="app-title">Movie WatchList</h1>
@@ -10,7 +30,7 @@ const App = () => {
           <h2 className="part1-title w-full text-center border p-2.5 text-[2rem] rounded-md">
             Add your favourite Movie
           </h2>
-          <AddMovies />
+          <AddMovies sendFormData={sendFormData} />
           <div className="w-full flex flex-col gap-y-7">
             <div className="border rounded-md p-2 text-center">
               Movies in WatchList: 0

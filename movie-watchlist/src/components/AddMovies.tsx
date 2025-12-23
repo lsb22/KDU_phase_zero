@@ -6,16 +6,45 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 
-const AddMovies = () => {
+interface Props {
+  sendFormData: (movieName: string, movieRatings: string) => void;
+}
+
+const AddMovies = ({ sendFormData }: Props) => {
   const [ratings, setRatings] = useState("Select a rating ⭐");
+  const [movie, setMovie] = useState("");
+
+  const handleFormSubmission = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (movie.length === 0) {
+      alert("Movie Name can't be empty! Please enter a valid Movie Name");
+      return;
+    }
+
+    if (ratings === "Select a rating ⭐") {
+      alert("Please select a valid rating from the dropdown");
+      return;
+    }
+
+    sendFormData(movie, ratings);
+    setMovie("");
+    setRatings("Select a rating ⭐");
+  };
+
   return (
-    <div className="border w-full py-7 px-3 flex flex-col gap-y-7 rounded-md">
+    <form
+      className="border w-full py-7 px-3 flex flex-col gap-y-7 rounded-md"
+      onSubmit={handleFormSubmission}
+    >
       <Input
         type="text"
         placeholder="Enter your movie name"
         className="h-10 text-center"
+        onChange={(e) => setMovie(e.target.value)}
+        value={movie}
+        required
       />
       <div className="border w-full rounded-md">
         <DropdownMenu>
@@ -41,10 +70,13 @@ const AddMovies = () => {
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-      <Button className="bg-blue-500 hover:bg-blue-600 p-4 active:scale-[0.9]">
+      <Button
+        className="bg-blue-500 hover:bg-blue-600 p-4 active:scale-[0.9]"
+        type="submit"
+      >
         Add to Watchlist
       </Button>
-    </div>
+    </form>
   );
 };
 
