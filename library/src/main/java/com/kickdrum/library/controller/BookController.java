@@ -29,6 +29,17 @@ public class BookController {
         } else return ResponseEntity.internalServerError().build();
     }
 
+    @GetMapping("/{authorName}")
+    public ResponseEntity<Map<String, Object>> getBooksByAuthorName(@PathVariable String authorName) {
+        List<Book> returnedBooks = bookService.getAllBooksByAuthor(authorName);
+        Map<String,Object> result = new HashMap<String,Object>();
+        if(returnedBooks.isEmpty()) {
+            result.put("message","Inventory is Empty");
+        }
+        result.put("Content",returnedBooks);
+        return ResponseEntity.ok(result);
+    }
+
     @GetMapping
     public ResponseEntity<Map<String, Object>> getAllBooks() {
         List<Book> returnedBooks = bookService.getAllBooks();
@@ -89,7 +100,12 @@ public class BookController {
             errors.put("message","Don't provide duplicate Entries");
             errors.put("error","Duplicate Entry");
             return ResponseEntity.status(HttpStatus.CONFLICT).body(errors);
-        } else if(ex.getMessage().contains("not found") || ex.getMessage().contains("deleted")) {
+        } else if(ex.getMessage().contains("Author")) {
+            errors.put("status",Integer.toString(HttpStatus.NOT_FOUND.value()));
+            errors.put("error","Author not found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errors);
+        }
+        else if(ex.getMessage().contains("not found") || ex.getMessage().contains("deleted")) {
             errors.put("status",Integer.toString(HttpStatus.NOT_FOUND.value()));
             errors.put("error","Book not found");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errors);

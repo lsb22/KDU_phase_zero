@@ -45,4 +45,13 @@ public class BookService {
 
         bookRepository.deleteById(id);
     }
+
+    public List<Book> getAllBooksByAuthor(String authorName) {
+        List<Book> expectedBooks =  bookRepository.findBooksByAuthor(authorName);
+        if(expectedBooks.isEmpty()) {
+            throw new RuntimeException("Author with name: "+authorName+" doesn't exist.");
+        }
+
+        return expectedBooks;
+    }
 }
