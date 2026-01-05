@@ -113,3 +113,27 @@ join category using(category_id);
 ### When StreamFlix homepage loads, it runs hundreds of queries filtering by category. How does an index help?
 
 *In the homepage we would display movies according to the category they belong Without having the index on category_id, we would have to scan the entire content table, row by row looking for the mathing entries which is generally inefficient. So by having an index on category_id, we would just search the index structure and there we will get pointers (references) to all the correspoding rows of the original content table. This would make our app faster and efficient.*
+
+## Request A (Category Audit): "Get a list of all content titles that belong to the 'Documentaries' 
+## category, was released in 2024 and has a rating higher than 8.0. We need the Title and the 
+## Category Name in the final report." 
+
+```
+select
+	title,
+	category_name
+from category
+join content using(category_id)
+where category_name = "Documentaries" and release_year = 2024 and rating > 8;
+```
+
+## Request B (Success Score Analysis): "We don't just want to know Views or Ratings 
+## separately. We need a combined 'Success Score' for our dashboard." 
+
+```
+select
+	title,
+	rating + views_in_millions as success_score
+from content
+where rating + views_in_millions > 100;
+```
